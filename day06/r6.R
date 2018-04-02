@@ -1,0 +1,29 @@
+# 09-7 성별 직업 빈도
+
+# 남성 직업 빈도 상위 10개 추출
+job_male <- welfare %>%
+  filter(!is.na(job) & sex == "male") %>%
+  group_by(job) %>%
+  summarise(n = n()) %>%
+  arrange(desc(n)) %>%
+  head(10)
+
+job_female <- welfare %>%
+  filter(!is.na(job) & sex =='female') %>%
+  group_by(job) %>%
+  summarise(n = n()) %>%
+  arrange(desc(n)) %>%
+  head(10)
+  
+ggplot(data = job_male, aes(x = reorder(job, n), y = n)) +
+  geom_col() +
+  coord_flip()
+
+ggplot(data = job_female, aes(x = reorder(job, n), y = n)) +
+  geom_col() +
+  coord_flip()
+
+# 원자료를 이용해 막대 그래프를 만들 때는 geom_bar()를 사용
+# 요약표를 이용해 막대 그래프를 만들 때는 geom_col()을 사용
+
+
